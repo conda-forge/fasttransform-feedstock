@@ -1,13 +1,13 @@
 {% set name = "fasttransform" %}
-{% set version = "0.0.2" %}
+{% set version = "0.0.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 18ea6964128be779a1c483d4775f1b5a2e452f915c2d30dfa2d91adca98453d7
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 0cde6a768b44fb6751309ef2c5cd829de1b7a27ca5055e03a55f8374471a0320
 
 build:
   noarch: python
