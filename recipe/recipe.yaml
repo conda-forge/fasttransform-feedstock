@@ -1,0 +1,63 @@
+schema_version: 1
+
+context:
+  version: "0.0.5"
+
+package:
+  name: fasttransform
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/f/fasttransform/fasttransform-${{ version }}.tar.gz
+  sha256: eb8f2c05b95f413df89e834dacb786de053c8280e5843108213311d0010b7bfa
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools >=64
+  run:
+    - python >=${{ python_min }}
+    - fastcore >=2.2.22
+    - plum-dispatch <2.10
+    # imported by fasttransform.cast but not declared upstream
+    - numpy
+
+tests:
+  - python:
+      imports:
+        - fasttransform
+        - fasttransform.transform
+        - fasttransform.cast
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+
+about:
+  homepage: https://github.com/AnswerDotAI/fasttransform
+  repository: https://github.com/AnswerDotAI/fasttransform
+  documentation: https://answerdotai.github.io/fasttransform
+  summary: Transform is the main building block of data pipelines in fastai. And elsewhere if you want.
+  description: |
+    Transform is a class that lets you create reusable data transformations.
+    You initialize a Transform by passing in or decorating a raw function.
+    The Transform then provides an enhanced version of that function via
+    Transform.encodes, which can be used in your data pipeline.
+
+    It provides various conveniences:
+    - Reversibility. You can collect the raw function and its inverse into one transform object.
+    - Customized initialization. You can customize the exact behavior of a transform function on initialization.
+    - Type-based multiple dispatch. Transforms can specialize their behavior based on the runtime types of their arguments.
+    - Type conversion/preservation. Transforms help you maintain desired return types.
+  license: Apache-2.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - tonyhoo
